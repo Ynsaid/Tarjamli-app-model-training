@@ -144,8 +144,8 @@ Note: The pipeline issues a warning that a hardware accelerator (GPU) is availab
 Tarjimli is designed with a clean, mobile-first interface focused on real-world translation workflows. The app provides a main text translation screen with source/target language selectors, a swap button, and quick actions for copying, listening to, and clear text.
 
 <p float="left">
-  <img src="https://github.com/user-attachments/assets/59d241ec-394d-4d8c-b9be-a675f2b26eba" width="45%" />
-  <img src="https://github.com/user-attachments/assets/526d2880-5a95-41f4-87c8-a2f32c81e460" width="45%" />
+  <img src="https://github.com/user-attachments/assets/59d241ec-394d-4d8c-b9be-a675f2b26eba" width="30%" />
+  <img src="https://github.com/user-attachments/assets/526d2880-5a95-41f4-87c8-a2f32c81e460" width="30%" />
 </p>
 
 ## Future Work
