@@ -1,19 +1,19 @@
 # Tarjimli 🌍🔤
 
-Tarjimli is an Arabic–English translation project that fine-tunes the **Helsinki-NLP/opus-mt-ar-en** sequence-to-sequence model on a custom bilingual dataset using Hugging Face Transformers. [code_file:1]
+Tarjimli is an Arabic–English translation project that fine-tunes the **Helsinki-NLP/opus-mt-ar-en** sequence-to-sequence model on a custom bilingual dataset using Hugging Face Transformers. 
 
 ## Overview
 
-The goal of this project is to build a practical machine translation engine between Arabic and English that you can plug into mobile, web, or backend applications. [code_file:1]
-It loads a pretrained MarianMT model, prepares a CSV dataset of Arabic–English sentence pairs, and trains the model with the `Trainer` API for efficient experimentation and deployment. [code_file:1]
+The goal of this project is to build a practical machine translation engine between Arabic and English that you can plug into mobile, web, or backend applications. 
+It loads a pretrained MarianMT model, prepares a CSV dataset of Arabic–English sentence pairs, and trains the model with the `Trainer` API for efficient experimentation and deployment. 
 
 ## Features
 
-- Fine-tuning of a pretrained Arabic→English MarianMT model on custom data instead of using generic out-of-the-box translations. [code_file:1]
-- Fully scripted training with Hugging Face `Trainer`, `TrainingArguments`, and `DataCollatorForSeq2Seq`. [code_file:1]
-- Support for modern accelerators via `bf16`, `tf32`, and the fused optimizer `adamw_torch_fused`. [code_file:1]
-- Clean saving of the final model and tokenizer to a dedicated directory, plus optional ZIP export for distribution. [code_file:1]
-- Simple inference pipeline ready to be used as a translation service in your app. [code_file:1]
+- Fine-tuning of a pretrained Arabic→English MarianMT model on custom data instead of using generic out-of-the-box translations. 
+- Fully scripted training with Hugging Face `Trainer`, `TrainingArguments`, and `DataCollatorForSeq2Seq`. 
+- Support for modern accelerators via `bf16`, `tf32`, and the fused optimizer `adamw_torch_fused`. 
+- Clean saving of the final model and tokenizer to a dedicated directory, plus optional ZIP export for distribution. 
+- Simple inference pipeline ready to be used as a translation service in your app. 
 
 ## Project Structure
 
@@ -28,7 +28,7 @@ Tarjimli/
 
 ## Requirements
 
-The notebook uses the following Python packages: [code_file:1]
+The notebook uses the following Python packages: 
 
 ```bash
 pip install transformers datasets sentencepiece accelerate evaluate sacrebleu -q
@@ -37,24 +37,24 @@ pip install torch torchaudio --no-cache-dir -q
 pip install "transformers==4.44.2" -q
 ```
 
-The exact Transformers version is pinned to `transformers==4.44.2` to avoid breaking changes in newer releases. [code_file:1]
+The exact Transformers version is pinned to `transformers==4.44.2` to avoid breaking changes in newer releases. 
 
 ## Dataset
 
 Training is done on a CSV file loaded from:
 
 ```text
-/home/jovyan/projects/translate/final_ar_en_dataset.csv
+https://www.kaggle.com/datasets/younesaid/translation-dataset-from-arabic-to-english
 ```
 
-The file is expected to contain two text columns: [code_file:1]
+The file is expected to contain two text columns: 
 
 | Column | Description |
 |--------|-------------|
 | `ar`   | Source sentence in Arabic |
 | `en`   | Target sentence in English |
 
-The dataset is split using `train_test_split(test_size=0.1)`, so 90% of the data is used for training and 10% for validation. [code_file:1]
+The dataset is split using `train_test_split(test_size=0.1)`, so 90% of the data is used for training and 10% for validation. 
 
 ## Training Setup
 
@@ -69,9 +69,9 @@ tokenizer = AutoTokenizer.from_pretrained(model_name)
 model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
 ```
 
-Then it tokenizes both the Arabic source and English target sentences with a maximum length of 128 tokens and prepares them for sequence-to-sequence training. [code_file:1]
+Then it tokenizes both the Arabic source and English target sentences with a maximum length of 128 tokens and prepares them for sequence-to-sequence training. 
 
-Key training arguments: [code_file:1]
+Key training arguments: 
 
 | Setting          | Value                 |
 |------------------|-----------------------|
@@ -87,11 +87,11 @@ Key training arguments: [code_file:1]
 | Precision        | `bf16=True`, `tf32=True` |
 | Optimizer        | `adamw_torch_fused`   |
 
-The training run reported `global_step=35498`, a runtime of about `3916.8` seconds, and a final training loss of `1.2212`. [code_file:1]
+The training run reported `global_step=35498`, a runtime of about `3916.8` seconds, and a final training loss of `1.2212`. 
 
 ## Saving the Model
 
-After training, the model and tokenizer are saved to the following path inside the project: [code_file:1]
+After training, the model and tokenizer are saved to the following path inside the project: 
 
 ```python
 save_path = "/home/jovyan/projects/translate/opus-ar-en-custom/final-model"
@@ -100,11 +100,11 @@ tokenizer.save_pretrained(save_path)
 print("saved to:", save_path)
 ```
 
-To make distribution easier, the notebook also compresses the `final-model` directory into a ZIP archive using `shutil.make_archive`. [code_file:1]
+To make distribution easier, the notebook also compresses the `final-model` directory into a ZIP archive using `shutil.make_archive`. 
 
 ## Inference (Translation)
 
-The notebook demonstrates how to reload the saved model and run inference with the Transformers `pipeline` API: [code_file:1]
+The notebook demonstrates how to reload the saved model and run inference with the Transformers `pipeline` API: 
 
 ```python
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, pipeline
@@ -128,7 +128,7 @@ for text in texts:
     print("EN:", out[0]["translation_text"])
 ```
 
-Sample outputs observed in the notebook include: [code_file:1]
+Sample outputs observed in the notebook include: 
 
 | Arabic input                                                   | English output                                              |
 |----------------------------------------------------------------|-------------------------------------------------------------|
@@ -136,18 +136,18 @@ Sample outputs observed in the notebook include: [code_file:1]
 | `أنا أدرس الذكاء الاصطناعي`                                   | `I'm studying artificial intelligence.`                     |
 | `هذا نموذج ترجمة عربي إلى إنجليزي`                            | `This is an Arab translation model for English .`          |
 
-Note: The pipeline issues a warning that a hardware accelerator (GPU) is available but the model is placed on CPU because no explicit `device` argument is passed. [code_file:1]
+Note: The pipeline issues a warning that a hardware accelerator (GPU) is available but the model is placed on CPU because no explicit `device` argument is passed. 
 
 ## Future Work
 
-- Add automatic evaluation with BLEU using the `sacrebleu` package. [code_file:1]
+- Add automatic evaluation with BLEU using the `sacrebleu` package. 
 - Extend the system to support English→Arabic translation as well.
 - Integrate the model into a REST API, mobile app, or web interface branded as **Tarjimli**.
 - Experiment with larger datasets and more training epochs to improve translation quality.
 
 ## License
 
-This repository builds on the `Helsinki-NLP/opus-mt-ar-en` model hosted on Hugging Face. [code_file:1]
+This repository builds on the `Helsinki-NLP/opus-mt-ar-en` model hosted on Hugging Face. 
 Please make sure to review and respect the upstream model license and the licenses of any datasets you train on.
 
 ## Author
