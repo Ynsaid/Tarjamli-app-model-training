@@ -140,10 +140,10 @@ Note: The pipeline issues a warning that a hardware accelerator (GPU) is availab
 
 ## Future Work
 
-- Add automatic evaluation with BLEU using the `sacrebleu` package. 
-- Extend the system to support English→Arabic translation as well.
-- Integrate the model into a REST API, mobile app, or web interface branded as **Tarjimli**.
-- Experiment with larger datasets and more training epochs to improve translation quality.
+- Add support for multiple languages and enable bidirectional translation (Arabic ⇄ other languages).
+- Extend the system to handle Arabic dialects and better represent diverse Arabic cultures.
+- Improve the application’s ability to understand contextual meaning instead of relying on literal word‑for‑word translation.
+- Enable real-time voice translation by integrating speech-to-text and text-to-speech technologies, rather than depending only on typed text input.
 
 ## License
 
