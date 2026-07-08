@@ -142,8 +142,9 @@ Note: The pipeline issues a warning that a hardware accelerator (GPU) is availab
 ## User Interface & Experience 
 
 Tarjimli is designed with a clean, mobile-first interface focused on real-world translation workflows. The app provides a main text translation screen with source/target language selectors, a swap button, and quick actions for copying, listening to, and clear text.
-<img width="1419" height="2796" alt="Splach page-portrait" src="https://github.com/user-attachments/assets/59d241ec-394d-4d8c-b9be-a675f2b26eba" />
-<img width="1419" height="2796" alt="Translate page-portrait" src="https://github.com/user-attachments/assets/526d2880-5a95-41f4-87c8-a2f32c81e460" />
+
+![Splash screen](https://github.com/user-attachments/assets/59d241ec-394d-4d8c-b9be-a675f2b26eba)
+![Translate screen](https://github.com/user-attachments/assets/526d2880-5a95-41f4-87c8-a2f32c81e460)
 
 ## Future Work
 
